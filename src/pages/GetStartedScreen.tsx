@@ -10,7 +10,7 @@ const GetStartedScreen = () => {
   return (
     <SafeAreaView className='flex-1 bg-[#A2BAFC]'>
       <View className='flex-col justify-center items-center mt-[100px]'>
-        <Text className='font-medium text-3xl'>Comic Online</Text>
+        <Text className='font-medium text-3xl'>Online Comic</Text>
         <Text className='font-normal text-base'>Continue to start</Text>
       </View>
       <View className='flex-col justify-center items-center mt-[60px]'>    
@@ -49,7 +49,7 @@ const GetStartedScreen = () => {
           </View>
         ))}
       </Swiper>
-      <View className="items-center pb-8">
+      <View className="justify-center items-center pb-8">
         <TouchableOpacity
           className="bg-[#424242] rounded-3xl w-[280px] h-[43px]"
           onPress={() => navigation.navigate("HomePageScreen")}
