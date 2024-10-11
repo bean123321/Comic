@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   SafeAreaView,
@@ -7,17 +7,22 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  TextInput
+  TextInput,
 } from "react-native";
 import { useNavigation } from "expo-router";
 import useFetchComics from "@/hooks/useFetchComics";
+import useFetchCategories from "@/hooks/useFetchCategories";
+
 const SearchLogo = require("../assets/images/SearchLogo.png");
 const FilterLogo = require("../assets/images/FilterLogo.png");
 
 const HomePageScreen = () => {
   const { comics, loading, error } = useFetchComics();
+  const { categories, categoriesLoading, categoriesError } = useFetchCategories();
   const [searchQuery, setSearchQuery] = useState("");
+  const [showCategories, setShowCategories] = useState(false);
   const navigation = useNavigation();
+
   // Function to chunk comics into groups of 5
   const chunkArray = (array, size) => {
     const result = [];
@@ -28,12 +33,12 @@ const HomePageScreen = () => {
   };
 
   // Filter comics based on the search query
-  const filteredComics = comics.filter(
-    (comic) =>
-      comic.name.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredComics = comics.filter((comic) =>
+    comic.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const comicChunks = chunkArray(filteredComics.slice(0, 200), 5);
+
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -49,10 +54,10 @@ const HomePageScreen = () => {
       </View>
     );
   }
-  
+
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <View className="flex-row justify-center items-center bg-white rounded-3xl shadow-md mt-[50px] mx-[8px] p-2">  
+      <View className="flex-row justify-center items-center bg-white rounded-3xl shadow-md mt-[50px] mx-[8px] p-2">
         <Image
           source={SearchLogo}
           style={{ width: 18, height: 19 }}
@@ -62,20 +67,47 @@ const HomePageScreen = () => {
         <TextInput
           placeholder="Search Comic"
           className="flex-1 h-10 text-black"
-          value={searchQuery} onChangeText={setSearchQuery}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
         />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setShowCategories(!showCategories)}>
           <Image
             source={FilterLogo}
             style={{ width: 20, height: 10 }}
             resizeMode="contain"
-            className="mr-2"
+            className="mr-2 p-2"
           />
         </TouchableOpacity>
       </View>
+
+      {showCategories && (
+        <ScrollView className="bg-gray-200 mt-4 mx-[8px] p-4 rounded-2xl">
+          {categoriesLoading ? (
+            <ActivityIndicator size="small" color="#000000" />
+          ) : categoriesError ? (
+            <Text style={{ color: "red" }}>Error: {categoriesError.message}</Text>
+          ) : (
+            categories.map((category, index) => (
+              <View key={index}>
+                <TouchableOpacity onPress={() => {
+                  navigation.navigate("CategoryScreen", {
+                    slug: category.slug,
+                  });
+                }}>
+                  <Text className="text-black text-base py-2 my-2">
+                    {category.name}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ))
+          )}
+        </ScrollView>
+      )}
+
       <View className="mt-[20px] ml-[9px]">
         <Text className="text-lg font-normal text-black">Home</Text>
       </View>
+
       <ScrollView showsVerticalScrollIndicator={false}>
         {comicChunks.map((chunk, chunkIndex) => (
           <ScrollView
@@ -95,7 +127,9 @@ const HomePageScreen = () => {
                       resizeMode="cover"
                     />
                   </TouchableOpacity>
-                  <Text className="text-lg font-normal">{comic.name.length > 10 ? `${comic.name.slice(0, 10)}...` : comic.name}</Text>
+                  <Text className="text-lg font-normal">
+                    {comic.name.length > 10 ? `${comic.name.slice(0, 10)}...` : comic.name}
+                  </Text>
                 </View>
               ))}
             </View>
@@ -103,7 +137,7 @@ const HomePageScreen = () => {
         ))}
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 export default HomePageScreen;
