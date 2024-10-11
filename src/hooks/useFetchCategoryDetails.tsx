@@ -26,8 +26,8 @@ const useFetchCategoryDetails = (slug) => {
   };
 
   useEffect(() => {
-    if(slug) {
-        fetchCategoryDetails();
+    if (slug) {
+      fetchCategoryDetails();
     }
   }, [slug]);
 
