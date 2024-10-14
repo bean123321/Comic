@@ -135,7 +135,12 @@ const HomePageScreen = () => {
             <View className="flex-row space-x-3 ml-[9px]">
               {chunk.map((comic, index) => (
                 <View className="pr-[8px] pt-[8px]" key={index}>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => {
+                    navigation.navigate("ComicDetailScreen", {
+                      slug: comic.slug,
+                      name: comic.name,
+                    });
+                  }}>
                     <Image
                       source={{
                         uri: `https://otruyenapi.com/uploads/comics/${comic.thumb_url}`,

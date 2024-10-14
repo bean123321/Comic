@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GetStartedScreen from "@/pages/GetStartedScreen";
 import HomePageScreen from "@/pages/HomePageScreen";
 import CategoryScreen from "@/pages/CategoryScreen";
+import ComicDetailScreen from "@/pages/ComicDetailScreen";
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
@@ -22,6 +23,11 @@ export default function App() {
         <Stack.Screen
           name="CategoryScreen"
           component={CategoryScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ComicDetailScreen"
+          component={ComicDetailScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
