@@ -21,7 +21,7 @@ const useFetchCategories = () => {
       setCategoriesError(error);
       console.error(error);
     } finally {
-        setCategoriesLoading(false);
+      setCategoriesLoading(false);
     }
   };
 

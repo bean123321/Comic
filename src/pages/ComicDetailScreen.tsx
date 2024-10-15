@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import {
   SafeAreaView,
   Text,
@@ -12,10 +12,10 @@ const SearchLogo = require("../assets/images/SearchLogo.png");
 const FilterLogo = require("../assets/images/FilterLogo.png");
 const ReadLogo = require("../assets/images/ReadLogo.png");
 const BackLogo = require("../assets/images/BackLogo.png");
-import useFetchComicDetails from '@/hooks/useFetchComicDetails';
-import { useNavigation } from 'expo-router';
-import useFetchCategories from '@/hooks/useFetchCategories';
-const ComicDetailScreen = ({route}) => {
+import useFetchComicDetails from "@/hooks/useFetchComicDetails";
+import { useNavigation } from "expo-router";
+import useFetchCategories from "@/hooks/useFetchCategories";
+const ComicDetailScreen = ({ route }) => {
   const { slug, name } = route.params; // Get the slug from route params
   const { comic, loading, error } = useFetchComicDetails(slug);
   const { categories, categoriesLoading, categoriesError } =
@@ -45,7 +45,7 @@ const ComicDetailScreen = ({route}) => {
     );
   }
   return (
-    <SafeAreaView className='flex-1 bg-white'>
+    <SafeAreaView className="flex-1 bg-white">
       <View className="flex-row justify-center items-center mt-[50px] mx-[9px]">
         <TouchableOpacity onPress={() => navigation.navigate("HomePageScreen")}>
           <Image
@@ -66,11 +66,12 @@ const ComicDetailScreen = ({route}) => {
             horizontal
             showsHorizontalScrollIndicator={false}
             className="flex-1 h-10"
-            contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }}
+            contentContainerStyle={{
+              justifyContent: "center",
+              alignItems: "center",
+            }}
           >
-            <Text className="text-black text-center">
-              {name}
-            </Text>
+            <Text className="text-black text-center">{name}</Text>
           </ScrollView>
           <TouchableOpacity onPress={() => setShowCategories(!showCategories)}>
             <Image
@@ -83,7 +84,10 @@ const ComicDetailScreen = ({route}) => {
         </View>
       </View>
       {showCategories && (
-        <ScrollView showsVerticalScrollIndicator={false} className="bg-gray-200 mt-[8px] mx-[9px] p-4 rounded-2xl">
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          className="bg-gray-200 mt-[8px] mx-[9px] p-4 rounded-2xl"
+        >
           {categoriesLoading ? (
             <ActivityIndicator size="small" color="#000000" />
           ) : categoriesError ? (
@@ -111,19 +115,21 @@ const ComicDetailScreen = ({route}) => {
           )}
         </ScrollView>
       )}
-      <View className='mt-[8px] mx-[8px]'>
+      <View className="mt-[8px] mx-[8px]">
         <Image
           source={{
             uri: `https://otruyenapi.com/uploads/comics/${comic.item.thumb_url}`,
           }}
-          style={{ width: '100%', height: 300 }}
+          style={{ width: "100%", height: 300 }}
           resizeMode="cover"
-          className='rounded-2xl'
+          className="rounded-2xl"
         />
       </View>
-      <View className='flex-row mt-[10px] mx-[8px] justify-between'>
-        <View className='mt-[5px]'>
-          <Text className='text-xl font-semibold'>{comic?.seoOnPage?.seoSchema?.director}</Text>
+      <View className="flex-row mt-[10px] mx-[8px] justify-between">
+        <View className="mt-[5px]">
+          <Text className="text-xl font-semibold">
+            {comic?.seoOnPage?.seoSchema?.director}
+          </Text>
         </View>
         <View>
           <Image
@@ -134,8 +140,13 @@ const ComicDetailScreen = ({route}) => {
           />
         </View>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false} className='mx-[8px] mt-[10px]'>
-        <Text className='text-lg font-normal'>{comic.item.content.replace(/<\/?p>/g, '')}</Text>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className="mx-[8px] mt-[10px]"
+      >
+        <Text className="text-lg font-normal">
+          {comic.item.content.replace(/<\/?p>/g, "")}
+        </Text>
       </ScrollView>
       <View className="justify-center items-center pb-8 mt-[10px]">
         <TouchableOpacity
@@ -148,25 +159,36 @@ const ComicDetailScreen = ({route}) => {
         </TouchableOpacity>
       </View>
       {showChapters && (
-        <ScrollView showsVerticalScrollIndicator={false} className="mx-[8px] mt-[10px]">
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          className="mx-[8px] mt-[10px]"
+        >
           <Text className="text-lg font-bold mb-2">Chapters:</Text>
-          {comic?.item?.chapters && comic?.item?.chapters[0]?.server_data?.length > 0 ? (
+          {comic?.item?.chapters &&
+          comic?.item?.chapters[0]?.server_data?.length > 0 ? (
             comic?.item?.chapters[0]?.server_data?.map((chapter, index) => (
               <TouchableOpacity
                 key={index}
                 className="bg-gray-200 p-3 mb-2 rounded-2xl"
-                onPress={() => {setShowChapters(false); navigation.navigate('ComicReadScreen', { chapterUrl: chapter.chapter_api_data })}}
+                onPress={() => {
+                  setShowChapters(false);
+                  navigation.navigate("ComicReadScreen", {
+                    chapterUrl: chapter.chapter_api_data,
+                  });
+                }}
               >
                 <Text className="text-black">{`Chapter ${chapter.chapter_name}`}</Text>
               </TouchableOpacity>
             ))
           ) : (
-            <Text className='text-lg'>Hiện tại chưa có thông tin truyện, vui lòng chờ đợi!</Text>
+            <Text className="text-lg">
+              Hiện tại chưa có thông tin truyện, vui lòng chờ đợi!
+            </Text>
           )}
         </ScrollView>
       )}
     </SafeAreaView>
-  )
-}
+  );
+};
 
 export default ComicDetailScreen;

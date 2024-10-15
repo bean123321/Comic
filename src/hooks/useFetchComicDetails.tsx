@@ -27,7 +27,7 @@ const useFetchComicDetails = (slug) => {
 
   useEffect(() => {
     if (slug) {
-        fetchComicDetails();
+      fetchComicDetails();
     }
   }, [slug]);
 

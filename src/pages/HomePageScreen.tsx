@@ -16,7 +16,7 @@ const SearchLogo = require("../assets/images/SearchLogo.png");
 const FilterLogo = require("../assets/images/FilterLogo.png");
 const BackLogo = require("../assets/images/BackLogo.png");
 const HomePageScreen = () => {
-  const { comics, loading, error } = useFetchComics();
+  const { comics, loading, error } = useFetchComics(); 
   const { categories, categoriesLoading, categoriesError } =
     useFetchCategories();
   const [searchQuery, setSearchQuery] = useState("");
