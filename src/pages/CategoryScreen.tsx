@@ -78,7 +78,7 @@ const CategoryScreen = ({ route }) => {
         </View>
       </View>
       {showCategories && (
-        <ScrollView className="bg-gray-200 mt-[8px] mx-[9px] p-4 rounded-2xl">
+        <ScrollView showsVerticalScrollIndicator={false} className="bg-gray-200 mt-[8px] mx-[9px] p-4 rounded-2xl">
           {categoriesLoading ? (
             <ActivityIndicator size="small" color="#000000" />
           ) : categoriesError ? (
@@ -106,7 +106,7 @@ const CategoryScreen = ({ route }) => {
           )}
         </ScrollView>
       )}
-      <ScrollView className="mb-[9px]">
+      <ScrollView showsVerticalScrollIndicator={false} className="mb-[9px]">
         {category.map((ct, index) => (
           <TouchableOpacity
             key={index}

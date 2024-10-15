@@ -16,7 +16,7 @@ const useFetchComicDetails = (slug) => {
 
     try {
       const response = await axios.request(options);
-      setComic(response.data.data.item);
+      setComic(response.data.data);
     } catch (error) {
       setError(error);
       console.error(error);

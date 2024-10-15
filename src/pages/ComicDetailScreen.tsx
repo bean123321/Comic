@@ -21,6 +21,7 @@ const ComicDetailScreen = ({route}) => {
   const { categories, categoriesLoading, categoriesError } =
     useFetchCategories();
   const [showCategories, setShowCategories] = useState(false);
+  const [showChapters, setShowChapters] = useState(false);
   const navigation = useNavigation();
   if (loading) {
     return (
@@ -82,7 +83,7 @@ const ComicDetailScreen = ({route}) => {
         </View>
       </View>
       {showCategories && (
-        <ScrollView className="bg-gray-200 mt-[8px] mx-[9px] p-4 rounded-2xl">
+        <ScrollView showsVerticalScrollIndicator={false} className="bg-gray-200 mt-[8px] mx-[9px] p-4 rounded-2xl">
           {categoriesLoading ? (
             <ActivityIndicator size="small" color="#000000" />
           ) : categoriesError ? (
@@ -110,16 +111,60 @@ const ComicDetailScreen = ({route}) => {
           )}
         </ScrollView>
       )}
-      <View className='mt-[8px]'>
+      <View className='mt-[8px] mx-[8px]'>
         <Image
           source={{
-            uri: `https://otruyenapi.com/uploads/comics/${comic.thumb_url}`,
+            uri: `https://otruyenapi.com/uploads/comics/${comic.item.thumb_url}`,
           }}
           style={{ width: '100%', height: 300 }}
           resizeMode="cover"
           className='rounded-2xl'
         />
       </View>
+      <View className='flex-row mt-[10px] mx-[8px] justify-between'>
+        <View className='mt-[5px]'>
+          <Text className='text-xl font-semibold'>{comic?.seoOnPage?.seoSchema?.director}</Text>
+        </View>
+        <View>
+          <Image
+            source={ReadLogo}
+            style={{ width: 40, height: 40 }}
+            resizeMode="contain"
+            className="rounded-full"
+          />
+        </View>
+      </View>
+      <ScrollView showsVerticalScrollIndicator={false} className='mx-[8px] mt-[10px]'>
+        <Text className='text-lg font-normal'>{comic.item.content.replace(/<\/?p>/g, '')}</Text>
+      </ScrollView>
+      <View className="justify-center items-center pb-8 mt-[10px]">
+        <TouchableOpacity
+          className="bg-[#424242] rounded-3xl w-[280px] h-[43px]"
+          onPress={() => setShowChapters(!showChapters)}
+        >
+          <Text className="text-white text-base text-center font-normal pt-[8px]">
+            Read now
+          </Text>
+        </TouchableOpacity>
+      </View>
+      {showChapters && (
+        <ScrollView showsVerticalScrollIndicator={false} className="mx-[8px] mt-[10px]">
+          <Text className="text-lg font-bold mb-2">Chapters:</Text>
+          {comic?.item?.chapters && comic?.item?.chapters[0]?.server_data?.length > 0 ? (
+            comic?.item?.chapters[0]?.server_data?.map((chapter, index) => (
+              <TouchableOpacity
+                key={index}
+                className="bg-gray-200 p-3 mb-2 rounded-2xl"
+                onPress={() => {setShowChapters(false); navigation.navigate('ComicReadScreen', { chapterUrl: chapter.chapter_api_data })}}
+              >
+                <Text className="text-black">{`Chapter ${chapter.chapter_name}`}</Text>
+              </TouchableOpacity>
+            ))
+          ) : (
+            <Text className='text-lg'>Hiện tại chưa có thông tin truyện, vui lòng chờ đợi!</Text>
+          )}
+        </ScrollView>
+      )}
     </SafeAreaView>
   )
 }

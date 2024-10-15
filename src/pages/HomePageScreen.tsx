@@ -40,9 +40,9 @@ const HomePageScreen = () => {
   const comicChunks = chunkArray(filteredComics.slice(0, 200), 5);
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <SafeAreaView className="flex-1 bg-black justify-center items-center">
         <ActivityIndicator size="large" color="#ffffff" />
-      </View>
+      </SafeAreaView>
     );
   }
 
@@ -92,7 +92,7 @@ const HomePageScreen = () => {
       </View>
 
       {showCategories && (
-        <ScrollView className="bg-gray-200 mt-[8px] mx-[9px] p-4 rounded-2xl">
+        <ScrollView showsVerticalScrollIndicator={false} className="bg-gray-200 mt-[8px] mx-[9px] p-4 rounded-2xl">
           {categoriesLoading ? (
             <ActivityIndicator size="small" color="#000000" />
           ) : categoriesError ? (
@@ -122,7 +122,7 @@ const HomePageScreen = () => {
       )}
 
       <View className="mt-[10px] ml-[9px]">
-        <Text className="text-lg font-normal text-black">Home</Text>
+        <Text className="text-lg font-semibold text-black">Home</Text>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>

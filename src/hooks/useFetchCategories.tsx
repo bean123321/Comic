@@ -18,7 +18,7 @@ const useFetchCategories = () => {
       const response = await axios.request(options);
       setCategories(response.data.data.items);
     } catch (error) {
-        setCategoriesError(error);
+      setCategoriesError(error);
       console.error(error);
     } finally {
         setCategoriesLoading(false);
