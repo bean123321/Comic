@@ -6,10 +6,15 @@ const useFetchReadComics = (chapterUrl) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch read comic details from API
+  // API request configuration
+  const options = {
+    method: "GET",
+    url: chapterUrl,
+  };
+
   const fetchChapterImages = async () => {
     try {
-      const response = await axios.get(chapterUrl);
+      const response = await axios.request(options);
       const { domain_cdn, item } = response.data.data;
       const images = item.chapter_image.map((image) => ({
         uri: `${domain_cdn}/${item.chapter_path}/${image.image_file}`,

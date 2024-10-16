@@ -159,33 +159,35 @@ const ComicDetailScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
       {showChapters && (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          className="mx-[8px] mt-[10px]"
-        >
-          <Text className="text-lg font-bold mb-2">Chapters:</Text>
+        <>
           {comic?.item?.chapters &&
           comic?.item?.chapters[0]?.server_data?.length > 0 ? (
-            comic?.item?.chapters[0]?.server_data?.map((chapter, index) => (
-              <TouchableOpacity
-                key={index}
-                className="bg-gray-200 p-3 mb-2 rounded-2xl"
-                onPress={() => {
-                  setShowChapters(false);
-                  navigation.navigate("ComicReadScreen", {
-                    chapterUrl: chapter.chapter_api_data,
-                  });
-                }}
-              >
-                <Text className="text-black">{`Chapter ${chapter.chapter_name}`}</Text>
-              </TouchableOpacity>
-            ))
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              className="mx-[8px] mt-[10px]"
+            >
+              <Text className="text-lg font-bold mb-2">Chapters:</Text>
+              {comic?.item?.chapters[0]?.server_data?.map((chapter, index) => (
+                <TouchableOpacity
+                  key={index}
+                  className="bg-gray-200 p-3 mb-2 rounded-2xl"
+                  onPress={() => {
+                    setShowChapters(false);
+                    navigation.navigate("ComicReadScreen", {
+                      chapterUrl: chapter.chapter_api_data,
+                    });
+                  }}
+                >
+                  <Text className="text-black">{`Chapter ${chapter.chapter_name}`}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           ) : (
-            <Text className="text-lg">
+            <Text className="text-lg mx-[8px] mt-[10px]">
               Hiện tại chưa có thông tin truyện, vui lòng chờ đợi!
             </Text>
           )}
-        </ScrollView>
+        </>
       )}
     </SafeAreaView>
   );
