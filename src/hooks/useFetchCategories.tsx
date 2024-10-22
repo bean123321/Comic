@@ -8,7 +8,7 @@ const useFetchCategories = () => {
 
   const options = {
     method: "GET",
-    url: "https://otruyenapi.com/v1/api/the-loai",
+    url: process.env.URL_CATEGORIES,
   };
   // Fetch categories from API
   const fetchCategories = async () => {

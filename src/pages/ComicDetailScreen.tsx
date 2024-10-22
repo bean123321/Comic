@@ -118,7 +118,7 @@ const ComicDetailScreen = ({ route }) => {
       <View className="mt-[8px] mx-[8px]">
         <Image
           source={{
-            uri: `https://otruyenapi.com/uploads/comics/${comic.item.thumb_url}`,
+            uri: `${process.env.URL_COMICS_THUMB}${comic.item.thumb_url}`,
           }}
           style={{ width: "100%", height: 300 }}
           resizeMode="cover"

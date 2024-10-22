@@ -15,7 +15,7 @@ const ComicReadScreen = ({ route }) => {
   const renderImage = ({ item }) => (
     <Image
       source={{ uri: item.uri }}
-      style={{ width: "100%", height: 500, marginBottom: 10 }}
+      style={{ width: "100%", height: 500}}
       resizeMode="contain"
     />
   );

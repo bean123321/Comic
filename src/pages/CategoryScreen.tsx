@@ -124,7 +124,7 @@ const CategoryScreen = ({ route }) => {
             <View className="flex-row items-center">
               <Image
                 source={{
-                  uri: `https://otruyenapi.com/uploads/comics/${ct.thumb_url}`,
+                  uri: `${process.env.URL_COMICS_THUMB}${ct.thumb_url}`,
                 }}
                 style={{ width: 60, height: 96 }}
                 resizeMode="cover"

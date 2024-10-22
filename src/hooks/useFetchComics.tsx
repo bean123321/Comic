@@ -8,7 +8,7 @@ const useFetchComics = () => {
 
   const options = {
     method: "GET",
-    url: "https://otruyenapi.com/v1/api/home",
+    url: process.env.URL_COMICS_HOME,
   };
   // Fetch comics from API
   const fetchComics = async () => {

@@ -143,7 +143,7 @@ const HomePageScreen = () => {
                   }}>
                     <Image
                       source={{
-                        uri: `https://otruyenapi.com/uploads/comics/${comic.thumb_url}`,
+                        uri: `${process.env.URL_COMICS_THUMB}${comic.thumb_url}`,
                       }}
                       className="w-[120px] h-[150px] rounded-2xl"
                       resizeMode="cover"
