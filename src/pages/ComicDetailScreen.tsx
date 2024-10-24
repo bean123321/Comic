@@ -47,7 +47,7 @@ const ComicDetailScreen = ({ route }) => {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-row justify-center items-center mt-[50px] mx-[9px]">
-        <TouchableOpacity onPress={() => navigation.navigate("HomePageScreen")}>
+        <TouchableOpacity onPress={() => (navigation as any).navigate("HomePageScreen")}>
           <Image
             source={BackLogo}
             style={{ width: 45, height: 45 }}
@@ -100,7 +100,7 @@ const ComicDetailScreen = ({ route }) => {
                 <TouchableOpacity
                   onPress={() => {
                     setShowCategories(false); // Close the category dropdown
-                    navigation.navigate("CategoryScreen", {
+                    (navigation as any).navigate("CategoryScreen", {
                       slug: category.slug,
                       name: category.name,
                     });
@@ -173,7 +173,7 @@ const ComicDetailScreen = ({ route }) => {
                   className="bg-gray-200 p-3 mb-2 rounded-2xl"
                   onPress={() => {
                     setShowChapters(false);
-                    navigation.navigate("ComicReadScreen", {
+                    (navigation as any).navigate("ComicReadScreen", {
                       chapterUrl: chapter.chapter_api_data,
                     });
                   }}

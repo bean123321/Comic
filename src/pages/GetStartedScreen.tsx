@@ -62,7 +62,7 @@ const GetStartedScreen = () => {
       <View className="justify-center items-center pb-8 mt-[10px]">
         <TouchableOpacity
           className="bg-[#424242] rounded-3xl w-[280px] h-[43px]"
-          onPress={() => navigation.navigate("HomePageScreen")}
+          onPress={() => (navigation as any).navigate("HomePageScreen")}
         >
           <Text className="text-white text-base text-center font-normal pt-[8px]">
             Continue

@@ -58,7 +58,7 @@ const HomePageScreen = () => {
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-row justify-center items-center mt-[50px] mx-[9px]">
         <TouchableOpacity
-          onPress={() => navigation.navigate("GetStartedScreen")}
+          onPress={() => (navigation as any).navigate("GetStartedScreen")}
         >
           <Image
             source={BackLogo}
@@ -105,7 +105,7 @@ const HomePageScreen = () => {
                 <TouchableOpacity
                   onPress={() => {
                     setShowCategories(false); // Close the category dropdown
-                    navigation.navigate("CategoryScreen", {
+                    (navigation as any).navigate("CategoryScreen", {
                       slug: category.slug,
                       name: category.name,
                     });
@@ -136,7 +136,7 @@ const HomePageScreen = () => {
               {chunk.map((comic, index) => (
                 <View className="pr-[8px] pt-[8px]" key={index}>
                   <TouchableOpacity onPress={() => {
-                    navigation.navigate("ComicDetailScreen", {
+                    (navigation as any).navigate("ComicDetailScreen", {
                       slug: comic.slug,
                       name: comic.name,
                     });

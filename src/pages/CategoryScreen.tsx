@@ -47,7 +47,7 @@ const CategoryScreen = ({ route }) => {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-row justify-center items-center mt-[50px] mx-[9px]">
-        <TouchableOpacity onPress={() => navigation.navigate("HomePageScreen")}>
+        <TouchableOpacity onPress={() => (navigation as any).navigate("HomePageScreen")}>
           <Image
             source={BackLogo}
             style={{ width: 45, height: 45 }}
@@ -94,7 +94,7 @@ const CategoryScreen = ({ route }) => {
                 <TouchableOpacity
                   onPress={() => {
                     setShowCategories(false); // Close the category dropdown
-                    navigation.navigate("CategoryScreen", {
+                    (navigation as any).navigate("CategoryScreen", {
                       slug: category.slug,
                       name: category.name,
                     });
@@ -115,7 +115,7 @@ const CategoryScreen = ({ route }) => {
             key={index}
             className="flex-row bg-gray-200 justify-between mt-[8px] rounded-2xl mx-[9px]"
             onPress={() => {
-              navigation.navigate("ComicDetailScreen", {
+              (navigation as any).navigate("ComicDetailScreen", {
                 slug: ct.slug,
                 name: ct.name,
               });
