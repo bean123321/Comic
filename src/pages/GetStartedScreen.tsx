@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   View,
@@ -9,9 +9,24 @@ import {
 import { slides } from "@/assets/data/SlideData";
 import Swiper from "react-native-swiper";
 import { useNavigation } from "expo-router";
+import * as ScreenOrientation from 'expo-screen-orientation';
 const GoogleLogo = require("../assets/images/GoogleLogo.png");
 const MetaLogo = require("../assets/images/MetaLogo.png");
 const GetStartedScreen = () => {
+  
+  // Lock the screen orientation to portrait mode
+  useEffect(() => {
+    const lockOrientation = async () => {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    };
+    lockOrientation();
+
+    return () => {
+      // Optionally, unlock orientation when leaving the screen
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
+
   const navigation = useNavigation();
   return (
     <SafeAreaView className="flex-1 bg-[#A2BAFC]">

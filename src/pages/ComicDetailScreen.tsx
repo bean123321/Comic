@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   Text,
@@ -15,6 +15,7 @@ const BackLogo = require("../assets/images/BackLogo.png");
 import useFetchComicDetails from "@/hooks/useFetchComicDetails";
 import { useNavigation } from "expo-router";
 import useFetchCategories from "@/hooks/useFetchCategories";
+import * as ScreenOrientation from 'expo-screen-orientation';
 const ComicDetailScreen = ({ route }) => {
   const { slug, name } = route.params; // Get the slug from route params
   const { comic, loading, error } = useFetchComicDetails(slug);
@@ -23,6 +24,20 @@ const ComicDetailScreen = ({ route }) => {
   const [showCategories, setShowCategories] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
   const navigation = useNavigation();
+  
+  // Lock the screen orientation to portrait mode
+  useEffect(() => {
+    const lockOrientation = async () => {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    };
+    lockOrientation();
+
+    return () => {
+      // Optionally, unlock orientation when leaving the screen
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
+  
   if (loading) {
     return (
       <SafeAreaView className="flex-1 bg-black justify-center items-center">

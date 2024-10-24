@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   FlatList,
@@ -8,7 +8,7 @@ import {
   Text,
 } from "react-native";
 import useFetchReadComics from "@/hooks/useFetchReadComics";
-
+import * as ScreenOrientation from 'expo-screen-orientation';
 const ComicReadScreen = ({ route }) => {
   const { chapterUrl } = route.params;
   const { chapterImages, loading, error } = useFetchReadComics(chapterUrl);
@@ -19,6 +19,19 @@ const ComicReadScreen = ({ route }) => {
       resizeMode="contain"
     />
   );
+  
+  // Lock the screen orientation to portrait mode
+  useEffect(() => {
+    const lockOrientation = async () => {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    };
+    lockOrientation();
+
+    return () => {
+      // Optionally, unlock orientation when leaving the screen
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
 
   return (
     <SafeAreaView className="flex-1 bg-white">

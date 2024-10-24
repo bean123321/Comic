@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   SafeAreaView,
@@ -12,6 +12,7 @@ import {
 import { useNavigation } from "expo-router";
 import useFetchCategoryDetails from "@/hooks/useFetchCategoryDetails";
 import useFetchCategories from "@/hooks/useFetchCategories";
+import * as ScreenOrientation from 'expo-screen-orientation';
 const SearchLogo = require("../assets/images/SearchLogo.png");
 const FilterLogo = require("../assets/images/FilterLogo.png");
 const ReadLogo = require("../assets/images/ReadLogo.png");
@@ -23,6 +24,20 @@ const CategoryScreen = ({ route }) => {
     useFetchCategories();
   const [showCategories, setShowCategories] = useState(false);
   const navigation = useNavigation();
+  
+  // Lock the screen orientation to portrait mode
+  useEffect(() => {
+    const lockOrientation = async () => {
+      await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+    };
+    lockOrientation();
+
+    return () => {
+      // Optionally, unlock orientation when leaving the screen
+      ScreenOrientation.unlockAsync();
+    };
+  }, []);
+
   if (loading) {
     return (
       <SafeAreaView className="flex-1 bg-black justify-center items-center">
