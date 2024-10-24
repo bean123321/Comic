@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   SafeAreaView,
@@ -128,7 +128,7 @@ const CategoryScreen = ({ route }) => {
                 }}
                 style={{ width: 60, height: 96 }}
                 resizeMode="cover"
-                className="ml-[8px] mr-[12px] mx-[20px] my-[15px] rounded-2xl"
+                className="ml-[8px] mr-[12px] my-[15px] rounded-2xl"
               />
               <Text className="text-gray-400 text-xs font-bold">
                 {ct.name?.length > 35 ? `${ct.name.slice(0, 35)}...` : ct.name}
