@@ -24,7 +24,7 @@ const ComicDetailScreen = ({ route }) => {
   const [showCategories, setShowCategories] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
   const navigation = useNavigation();
-  
+ 
   // Lock the screen orientation to portrait mode
   useEffect(() => {
     const lockOrientation = async () => {
@@ -33,8 +33,8 @@ const ComicDetailScreen = ({ route }) => {
     lockOrientation();
 
     return () => {
-      // Optionally, unlock orientation when leaving the screen
-      ScreenOrientation.unlockAsync();
+      // Re-lock the orientation to portrait when leaving the screen
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     };
   }, []);
   

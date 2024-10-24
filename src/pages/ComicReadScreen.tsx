@@ -19,7 +19,7 @@ const ComicReadScreen = ({ route }) => {
       resizeMode="contain"
     />
   );
-  
+ 
   // Lock the screen orientation to portrait mode
   useEffect(() => {
     const lockOrientation = async () => {
@@ -28,11 +28,11 @@ const ComicReadScreen = ({ route }) => {
     lockOrientation();
 
     return () => {
-      // Optionally, unlock orientation when leaving the screen
-      ScreenOrientation.unlockAsync();
+      // Re-lock the orientation to portrait when leaving the screen
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     };
   }, []);
-
+  
   return (
     <SafeAreaView className="flex-1 bg-white">
       {loading ? (

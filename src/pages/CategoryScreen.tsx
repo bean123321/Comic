@@ -33,11 +33,11 @@ const CategoryScreen = ({ route }) => {
     lockOrientation();
 
     return () => {
-      // Optionally, unlock orientation when leaving the screen
-      ScreenOrientation.unlockAsync();
+      // Re-lock the orientation to portrait when leaving the screen
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     };
   }, []);
-
+  
   if (loading) {
     return (
       <SafeAreaView className="flex-1 bg-black justify-center items-center">

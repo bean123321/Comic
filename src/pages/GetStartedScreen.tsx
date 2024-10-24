@@ -13,7 +13,7 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 const GoogleLogo = require("../assets/images/GoogleLogo.png");
 const MetaLogo = require("../assets/images/MetaLogo.png");
 const GetStartedScreen = () => {
-  
+ 
   // Lock the screen orientation to portrait mode
   useEffect(() => {
     const lockOrientation = async () => {
@@ -22,11 +22,11 @@ const GetStartedScreen = () => {
     lockOrientation();
 
     return () => {
-      // Optionally, unlock orientation when leaving the screen
-      ScreenOrientation.unlockAsync();
+      // Re-lock the orientation to portrait when leaving the screen
+      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
     };
   }, []);
-
+  
   const navigation = useNavigation();
   return (
     <SafeAreaView className="flex-1 bg-[#A2BAFC]">
